@@ -10,19 +10,19 @@ It currently exposes the following metrics:
 
 
 ## Future Metric Additions
-**CPU Usage:** Percentage of CPU used by processes
+**CPU Usage:** Percentage of CPU used by processes  
 
-**Free Memory:** Amount of memory that is not being used
-**Buffer/Cache:** Memory used by the kernel for buffers or caching
+**Free Memory:** Amount of memory that is not being used  
+**Buffer/Cache:** Memory used by the kernel for buffers or caching  
 
-**Disk Utilization:** Percentage of disk space used
-**Disk I/O:** Read and write operations on the disk
-**Disk Throughput:** Speed of data transfer on disk
+**Disk Utilization:** Percentage of disk space used  
+**Disk I/O:** Read and write operations on the disk  
+**Disk Throughput:** Speed of data transfer on disk  
 
-**Network Traffic:** Amount of data sent and received over a network interface
-**Packet Statistics:** Number of packets sent and received, including errors and drops
+**Network Traffic:** Amount of data sent and received over a network interface  
+**Packet Statistics:** Number of packets sent and received, including errors and drops  
 
-**Uptime:** How long the system has been running since the last reboot
+**Uptime:** How long the system has been running since the last reboot  
 
-**Number of Processes:** Total number of active processes
-**Specific Process Monitoring:** Resources used by specific processes, such as memory and CPU usage
+**Number of Processes:** Total number of active processes  
+**Specific Process Monitoring:** Resources used by specific processes, such as memory and CPU usage  
