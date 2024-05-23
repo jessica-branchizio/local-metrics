@@ -4,14 +4,14 @@ This repo implements a prometheus exporter and an osClient using the gopsutil li
 
 ## Current Features 
 - **CPU Load:** 1-minute, 5-minute, and 15-minute load averages, which indicate the average number of processes waiting to run
-- **Total Memory:** Total physical memory available on the machine
 - **Used Memory:** Amount of memory currently used by all processes
 - **Available Memory:** Amount of memory currently available
+- **Free Memory:** Amount of memory that is not being used
+- **Total Memory:** Total physical memory available on the machine
 
 
 ## Future Features
 - **CPU Usage:** Percentage of CPU used by processes
-- **Free Memory:** Amount of memory that is not being used
 - **Buffer/Cache:** Memory used by the kernel for buffers or caching
 - **Disk Utilization:** Percentage of disk space used
 - **Disk I/O:** Read and write operations on the disk
