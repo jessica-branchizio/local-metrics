@@ -51,36 +51,38 @@ func NewOSExporter(client clients.OSClient, cpuInterval, memInterval time.Durati
 }
 
 func (e *OSExporter) Run() {
-	go e.sendCPUMetrics()
-	go e.sendMemMetrics()
-}
+	cpuTicker := time.NewTicker(e.cpuInterval)
+	memTicker := time.NewTicker(e.memInterval)
 
-func (e *OSExporter) sendCPUMetrics() {
 	for {
-		v, err := e.osClient.GetCPU()
-		if err != nil {
-			log.Fatal(err)
+		select {
+		case <-cpuTicker.C:
+			e.updateCPUMetrics()
+		case <-memTicker.C:
+			e.updateMemMetrics()
 		}
-
-		cpuLoad1m.Set(v.Load1 * 100)
-		cpuLoad5m.Set(v.Load5 * 100)
-		cpuLoad15m.Set(v.Load15 * 100)
-
-		time.Sleep(time.Duration(e.cpuInterval) * time.Millisecond)
 	}
 }
 
-func (e *OSExporter) sendMemMetrics() {
-	for {
-		v, err := e.osClient.GetMem()
-
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		availableMem.Set(float64(v.Available))
-		usedMem.Set(float64(v.Used))
-		totalMem.Set(float64(v.Total))
-		time.Sleep(time.Duration(e.memInterval) * time.Millisecond)
+func (e *OSExporter) updateCPUMetrics() {
+	v, err := e.osClient.GetCPU()
+	if err != nil {
+		log.Fatal(err)
 	}
+
+	cpuLoad1m.Set(v.Load1 * 100)
+	cpuLoad5m.Set(v.Load5 * 100)
+	cpuLoad15m.Set(v.Load15 * 100)
+}
+
+func (e *OSExporter) updateMemMetrics() {
+	v, err := e.osClient.GetMem()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	availableMem.Set(float64(v.Available))
+	usedMem.Set(float64(v.Used))
+	totalMem.Set(float64(v.Total))
 }
