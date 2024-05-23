@@ -10,23 +10,30 @@ type OSClient interface {
 	GetMem() (*mem.VirtualMemoryStat, error)
 }
 
-func (c *Client) GetCPU() (*load.AvgStat, error) {
+func (moc *MacOSClient) GetCPU() (*load.AvgStat, error) {
 	return load.Avg()
 }
 
-func (c *Client) GetMem() (*mem.VirtualMemoryStat, error) {
+func (moc *MacOSClient) GetMem() (*mem.VirtualMemoryStat, error) {
 	return mem.VirtualMemory()
 }
 
-type Client struct {
-	MemIteration int
-	CpuIteration int
-	OSClient     *OSClient
+type MacOSClient struct{}
+
+func (loc *LinuxOSClient) GetCPU() (*load.AvgStat, error) {
+	return load.Avg()
 }
 
-func NewOSClient(memIteration, cpuIteration int) *Client {
-	return &Client{
-		MemIteration: memIteration,
-		CpuIteration: cpuIteration,
-	}
+func (loc *LinuxOSClient) GetMem() (*mem.VirtualMemoryStat, error) {
+	return mem.VirtualMemory()
+}
+
+type LinuxOSClient struct{}
+
+func NewMacOSClient() OSClient {
+	return &MacOSClient{}
+}
+
+func NewLinuxOSClient() OSClient {
+	return &LinuxOSClient{}
 }
