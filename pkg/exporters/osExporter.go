@@ -22,10 +22,6 @@ var (
 		Name: "cpu_load_15m",
 		Help: "Average CPU load 15 minutes",
 	})
-	totalMem = promauto.NewGauge(prometheus.GaugeOpts{
-		Name: "total_memory_bytes",
-		Help: "Total memory in bytes",
-	})
 	usedMem = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "used_memory_bytes",
 		Help: "Used memory in bytes",
@@ -33,6 +29,14 @@ var (
 	availableMem = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "available_memory_bytes",
 		Help: "Available memory in bytes",
+	})
+	totalMem = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "total_memory_bytes",
+		Help: "Total memory in bytes",
+	})
+	freeMem = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "free_memory_bytes",
+		Help: "Free memory in bytes",
 	})
 )
 
@@ -82,7 +86,8 @@ func (e *OSExporter) updateMemMetrics() {
 		log.Fatal(err)
 	}
 
-	availableMem.Set(float64(v.Available))
 	usedMem.Set(float64(v.Used))
+	availableMem.Set(float64(v.Available))
+	freeMem.Set(float64(v.Free))
 	totalMem.Set(float64(v.Total))
 }
